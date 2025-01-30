@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using System;
 
 public class MyPlayer : MonoBehaviour
 {
@@ -33,11 +34,12 @@ public class MyPlayer : MonoBehaviour
     public Gradient colourProgressoin;
     public Gradient colourProgressForDust;
     //float progressTimer;
+        
     private void Start()
     {
 
-
         
+
 
         cam = Camera.main.gameObject;
         artInside = transform.Find("art inside").gameObject;

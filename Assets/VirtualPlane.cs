@@ -14,12 +14,12 @@ public class VirtualPlane : MonoBehaviour
     int planeSize = 200;
     int planeHalf = 100;
 
-
+    Seed seed;
     float timer;
 
     void Start()
     {
-
+        seed = transform.parent.GetComponent<Seed>();
  
         player = GameObject.Find("player");
         foreach (Transform child in transform) maps.Add(child.transform);
@@ -68,12 +68,17 @@ public class VirtualPlane : MonoBehaviour
         }
     }
 
-    
+    int chunkHash; // chunk ID -- I keep the same one for rotation and type!
+
     void SwapMap()
     {
         foreach(var _m in maps) _m.transform.gameObject.SetActive(false);
-        maps[ Random.Range(0,maps.Count) ].gameObject.SetActive(true);
-        transform.localEulerAngles = new Vector3(0, 0, 90 * Random.Range(0,5) );
+
+        chunkHash = (int)transform.position.x * 73856093 ^ (int)transform.position.y * 19349663;
+        // passing the value- which is multiplied by a large prime number to make output more scattered and less predictable
+        maps[seed.Next(chunkHash, maps.Count)].gameObject.SetActive(true);
+        transform.localEulerAngles = new Vector3(0, 0, 90 * seed.Next(chunkHash,4) );
+      
     }
 
 
