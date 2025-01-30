@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
-using System;
 
 public class MyPlayer : MonoBehaviour
 {
-
-
     public GameObject art;
     public GameObject artInside;
     float dt;
     public float movementSpeed = 0.5f;
-    public float rotSpeed = 30;//20
+    public float rotSpeed = 30;
     float artRotation;
     float artScale = 1;
     bool gameOver = false;
@@ -33,14 +30,17 @@ public class MyPlayer : MonoBehaviour
     public Material shaderDustMat;
     public Gradient colourProgressoin;
     public Gradient colourProgressForDust;
-    //float progressTimer;
-        
+
+    public Seed seed;
+    public float colourSeed;
+    [Range(0f, 1f)]
+    public float showC;
     private void Start()
     {
 
-        
-
-
+        seed = GameObject.Find("mapGen").GetComponent<Seed>();
+        colourSeed = seed.Signature();
+        print(colourSeed);
         cam = Camera.main.gameObject;
         artInside = transform.Find("art inside").gameObject;
         insideOriginalColour = artInside.GetComponent<Renderer>().material.color;
@@ -72,8 +72,16 @@ public class MyPlayer : MonoBehaviour
     {
 
         //progress
-        sharedMaterial.color = colourProgressoin.Evaluate((Mathf.Cos(  transform.position.x/200 + transform.position.y/200  ) +1) / 2); // 3 min for a colour cycle
-        shaderDustMat.color = colourProgressForDust.Evaluate((Mathf.Cos(0.2f+ transform.position.x / 200 + transform.position.y / 200) + 1) / 2);
+       // sharedMaterial.color = colourProgressoin.Evaluate((Mathf.Cos(  transform.position.x/200 + transform.position.y/200  ) +1) / 2);
+
+        
+        showC = (Mathf.PerlinNoise(colourSeed + transform.position.x / 1000, colourSeed + transform.position.y / 1000) * 3) - 1f ;
+
+
+        sharedMaterial.color = colourProgressoin.Evaluate(showC);
+        shaderDustMat.color = colourProgressForDust.Evaluate(showC);
+
+
 
         blink = (Mathf.Cos(Time.time * 10 ) + 1) / 2;
         art.GetComponent<Renderer>().material.color = lifeGradient.Evaluate(scale) * new Vector4(1, 1, 1, Mathf.Clamp ((blink + scale),0,1 ) );

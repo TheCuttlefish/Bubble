@@ -6,24 +6,25 @@ public class CollectableSpawner : MonoBehaviour
 {
 
     public GameObject collectable;
-    GameObject collectableRef;
+    private GameObject collectableRef;
 
     private void OnEnable()
     {
-
-        if (collectable != null)
+        if (collectable) // Only instantiate if a collectable is assigned
         {
             collectableRef = Instantiate(collectable, transform.position, transform.rotation);
             collectableRef.transform.parent = transform;
         }
     }
 
-
     private void OnDisable()
     {
-        if(collectableRef != null) Destroy(collectableRef);
+        if (collectableRef) // Destroy the collectable when the chunk is disabled
+        {
+            Destroy(collectableRef);
+            collectableRef = null; // Ensure it's reset to null
+        }
     }
-
 
     private void OnDrawGizmos()
     {

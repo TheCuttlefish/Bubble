@@ -23,62 +23,47 @@ public class VirtualPlane : MonoBehaviour
  
         player = GameObject.Find("player");
         foreach (Transform child in transform) maps.Add(child.transform);
+
+        InvokeRepeating("CheckAndMoveChunk",0, 0.5f);
+
     }
 
-    void Update()
+   
+    void CheckAndMoveChunk()
     {
 
-        timer += Time.deltaTime;
+        Vector3 playerPos = player.transform.position;
+        Vector3 moveDirection = Vector3.zero;  // Default to no movement
 
-        if (timer > 0.5f)
+        // Check if the chunk is too far from the player
+        if (transform.position.x > playerPos.x + planeHalf)moveDirection.x = -planeSize;  // Move left by 50
+        if (transform.position.x < playerPos.x - planeHalf) moveDirection.x = planeSize;   // Move right by 50
+        if (transform.position.y > playerPos.y + planeHalf)  moveDirection.y = -planeSize;  // Move down by 50
+        if (transform.position.y < playerPos.y - planeHalf) moveDirection.y = planeSize;   // Move up by 50
+
+        // If movement is required, move the chunk and swap its contents
+        if (moveDirection != Vector3.zero)
         {
-
-            if (transform.position.x > player.transform.position.x + planeHalf)
-            {
-                transform.position += new Vector3(-planeSize, 0, 0);
-               
-                SwapMap();
-
-            }
-
-            if (transform.position.x < player.transform.position.x - planeHalf)
-            {
-                transform.position += new Vector3(planeSize, 0, 0);
-                //transform.Translate(planeSize, 0, 0);
-                SwapMap();
-
-            }
-
-            if (transform.position.y > player.transform.position.y + planeHalf)
-            {
-                transform.position += new Vector3(0, -planeSize, 0);
-             
-                SwapMap();
-
-            }
-
-            if (transform.position.y < player.transform.position.y - planeHalf)
-            {
-                transform.position += new Vector3(0, planeSize, 0);
-                SwapMap();
-
-            }
-            timer = 0;
-
+            transform.position += moveDirection;
+            SwapMap();  // Only swap if movement happened
         }
+
     }
 
-    int chunkHash; // chunk ID -- I keep the same one for rotation and type!
 
+
+    private Transform activeMap;
     void SwapMap()
     {
-        foreach(var _m in maps) _m.transform.gameObject.SetActive(false);
+        if (activeMap) activeMap.gameObject.SetActive(false);
 
-        chunkHash = (int)transform.position.x * 73856093 ^ (int)transform.position.y * 19349663;
-        // passing the value- which is multiplied by a large prime number to make output more scattered and less predictable
-        maps[seed.Next(chunkHash, maps.Count)].gameObject.SetActive(true);
-        transform.localEulerAngles = new Vector3(0, 0, 90 * seed.Next(chunkHash,4) );
-      
+        int chunkHash = Mathf.Abs((int)transform.position.x * 73856093 ^ (int)transform.position.y * 19349663);
+
+        activeMap = maps[seed.Next(chunkHash, maps.Count)]; // Directly store GameObject
+        activeMap.gameObject.SetActive(true);
+
+        transform.localEulerAngles = new Vector3(0, 0, 90 * seed.Next(chunkHash, 4));
+
     }
 
 
