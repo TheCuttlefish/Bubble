@@ -29,7 +29,7 @@ public class ScoreCounter : MonoBehaviour
         if (countScore)
         {
             timer += Time.deltaTime;
-            if (timer > 0.1f)
+            if (timer > 0.05f)
             {
                 string s = score.text;
                 if (s.Length > 0)

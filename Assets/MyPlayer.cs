@@ -50,13 +50,17 @@ public class MyPlayer : MonoBehaviour
 
     void UpdateScale()
     {
-        if (scale > 0.3)
+        if (scale > 0)
         {
-            scale -= 0.015f;
-            transform.localScale = new Vector3(1, 1, 1) * scale;
+            scale -= 0.02f;
+            transform.localScale = new Vector3(0.3f, 0.3f, 0.3f) +  new Vector3(0.7f, 0.7f, 0.7f) * scale ;
             trailRenderer.startWidth = scale;
-            lifeIndication.startWidth = scale/2;
-            lifeIndication.time = scale - 0.3f;
+
+            lifeIndication.startWidth = 0.2f ;
+            lifeIndication.time = ((scale) * 2.5f);
+            // lifeIndication.time = ((scale) * 2.5f) + -speedBurst/10; -- code to extend tail on pick up / control burrst speed - need fixing
+            lifeIndication.textureScale = new Vector2( (int)((scale + 0.02f) * 49), 1); 
+
             art.GetComponent<Renderer>().material.color = lifeGradient.Evaluate(scale);
             cam.GetComponent<CameraScript>().SetZPos(scale);// - 1 to 0.3f
 
@@ -75,7 +79,7 @@ public class MyPlayer : MonoBehaviour
        // sharedMaterial.color = colourProgressoin.Evaluate((Mathf.Cos(  transform.position.x/200 + transform.position.y/200  ) +1) / 2);
 
         
-        showC = (Mathf.PerlinNoise(colourSeed + transform.position.x / 1000, colourSeed + transform.position.y / 1000) * 3) - 1f ;
+        showC = (Mathf.PerlinNoise(colourSeed + transform.position.x / 400, colourSeed + transform.position.y / 400) * 3) - 1f ;
 
 
         sharedMaterial.color = colourProgressoin.Evaluate(showC);

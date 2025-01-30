@@ -59,9 +59,19 @@ public class VirtualPlane : MonoBehaviour
 
         int chunkHash = Mathf.Abs((int)transform.position.x * 73856093 ^ (int)transform.position.y * 19349663);
 
+        float distance = Vector2.Distance(transform.position, Vector2.zero)/1000;
+
+        if (distance < 0.3f)
+             activeMap = maps[seed.Next(chunkHash, 4)];
+        else if (distance > 0.3f || distance < 10)
+             activeMap = maps[4 + seed.Next(chunkHash, 5)];
+
+
+
         //activeMap = maps[seed.Next(chunkHash, maps.Count)]; // Directly store GameObject
-        activeMap = maps[seed.Next(chunkHash, 4)];
         activeMap.gameObject.SetActive(true);
+
+      
 
         transform.localEulerAngles = new Vector3(0, 0, 90 * seed.Next(chunkHash, 4));
 

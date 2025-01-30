@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class FadeOutScreen : MonoBehaviour
 {
     CanvasGroup cGroup;
-    float showAlpha = 0f;
+
+
+
     float timer = 0;
 
     private void Awake()
