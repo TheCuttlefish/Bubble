@@ -15643,7 +15643,7 @@ GameObject:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: --light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36778,12 +36778,12 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 789771734}
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 2979842388841287231}
   - {fileID: 1269867504}
   - {fileID: 467706511}
+  - {fileID: 789771734}
   - {fileID: 2110584292}
   - {fileID: 558572322}
   - {fileID: 653728319}

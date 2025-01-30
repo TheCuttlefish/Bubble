@@ -40,7 +40,7 @@ public class MyPlayer : MonoBehaviour
 
         seed = GameObject.Find("mapGen").GetComponent<Seed>();
         colourSeed = seed.Signature();
-        print(colourSeed);
+
         cam = Camera.main.gameObject;
         artInside = transform.Find("art inside").gameObject;
         insideOriginalColour = artInside.GetComponent<Renderer>().material.color;
