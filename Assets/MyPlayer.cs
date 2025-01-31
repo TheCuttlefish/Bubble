@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MyPlayer : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class MyPlayer : MonoBehaviour
     public UnityEvent onGameOver;
     float scale = 1;
     TrailRenderer trailRenderer;
-    public TrailRenderer lifeIndication;
     public Gradient lifeGradient;
     Color insideOriginalColour;
     GameObject cam;
@@ -35,6 +35,11 @@ public class MyPlayer : MonoBehaviour
     public float colourSeed;
     [Range(0f, 1f)]
     public float showC;
+
+
+    public Image inner_UI, outer_UI;
+
+
     private void Start()
     {
 
@@ -50,16 +55,24 @@ public class MyPlayer : MonoBehaviour
 
     void UpdateScale()
     {
-        if (scale > 0)
+        if (scale > 0.01f)
         {
             scale -= 0.02f;
-            transform.localScale = new Vector3(0.3f, 0.3f, 0.3f) +  new Vector3(0.7f, 0.7f, 0.7f) * scale ;
-            trailRenderer.startWidth = scale;
+           // transform.localScale = new Vector3(0.3f, 0.3f, 0.3f) +  new Vector3(0.7f, 0.7f, 0.7f) * scale ;
+            //trailRenderer.startWidth = scale;
 
-            lifeIndication.startWidth = 0.2f ;
-            lifeIndication.time = ((scale) * 2.5f);
+            if (scale > 0.5f)
+            {
+                inner_UI.fillAmount = 1;//inner is full
+                outer_UI.fillAmount = (scale * 2) - 1;
+            }
+            else
+                inner_UI.fillAmount = (scale * 2) - 0;
+
+            //lifeIndication.startWidth = 0.2f ;
+            //lifeIndication.time = ((scale) * 2.5f);
             // lifeIndication.time = ((scale) * 2.5f) + -speedBurst/10; -- code to extend tail on pick up / control burrst speed - need fixing
-            lifeIndication.textureScale = new Vector2( (int)((scale + 0.02f) * 49), 1); 
+            //lifeIndication.textureScale = new Vector2( (int)((scale + 0.02f) * 49), 1); 
 
             art.GetComponent<Renderer>().material.color = lifeGradient.Evaluate(scale);
             cam.GetComponent<CameraScript>().SetZPos(scale);// - 1 to 0.3f
