@@ -20666,7 +20666,7 @@ RectTransform:
   m_GameObject: {fileID: 1089166537}
   m_LocalRotation: {x: -0, y: -0, z: -0.000000059604638, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.13149002, y: 0.13149002, z: 0.13149002}
+  m_LocalScale: {x: 0.050134517, y: 0.050134517, z: 0.050134517}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2123108330}
@@ -34219,7 +34219,7 @@ RectTransform:
   m_GameObject: {fileID: 2016454256}
   m_LocalRotation: {x: -0, y: -0, z: 0.000000014901161, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.14060627, y: 0.14060627, z: 0.14060627}
+  m_LocalScale: {x: 0.05361036, y: 0.05361036, z: 0.05361036}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2123108330}
@@ -35865,7 +35865,7 @@ RectTransform:
   m_GameObject: {fileID: 2123108329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 15}
-  m_LocalScale: {x: 0.34552667, y: 0.34552664, z: 0.34552664}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2016454257}
@@ -36422,34 +36422,34 @@ MonoBehaviour:
         m_CallState: 2
   lifeGradient:
     serializedVersion: 2
-    key0: {r: 0, g: 0.8390708, b: 1, a: 0.17254902}
-    key1: {r: 0.59748423, g: 0, b: 0.1738875, a: 1}
-    key2: {r: 1, g: 0, b: 0.47561884, a: 1}
-    key3: {r: 1, g: 0.5805247, b: 0, a: 0}
-    key4: {r: 0.95686275, g: 1, b: 0.20392157, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 1, g: 0, b: 0.18658495, a: 1}
+    key1: {r: 0.4716981, g: 0, b: 0.22382556, a: 0.17254902}
+    key2: {r: 1, g: 0.5805247, b: 0, a: 0.42352942}
+    key3: {r: 0.95686275, g: 1, b: 0.20392157, a: 0.40392157}
+    key4: {r: 0, g: 0, b: 0, a: 1}
+    key5: {r: 0, g: 0, b: 0, a: 1}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 129
-    ctime1: 5269
-    ctime2: 31226
-    ctime3: 33410
-    ctime4: 65535
+    ctime0: 0
+    ctime1: 5526
+    ctime2: 16063
+    ctime3: 65535
+    ctime4: 0
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 30969
-    atime1: 33667
-    atime2: 65535
-    atime3: 0
-    atime4: 0
-    atime5: 0
+    atime0: 0
+    atime1: 2570
+    atime2: 16063
+    atime3: 32125
+    atime4: 33796
+    atime5: 65535
     atime6: 0
     atime7: 0
     m_Mode: 2
     m_ColorSpace: -1
-    m_NumColorKeys: 5
-    m_NumAlphaKeys: 3
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 6
   sharedMaterial: {fileID: 2100000, guid: 3df28222990952b4481983f67a762c4a, type: 2}
   shaderDustMat: {fileID: 2100000, guid: e64e577026c260b4ea889b19ec130e7b, type: 2}
   colourProgressoin:
@@ -36512,6 +36512,36 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
+  lifeDotsGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0.41675282, a: 0.5294118}
+    key1: {r: 0.7484276, g: 0, b: 0.1320756, a: 0.226187}
+    key2: {r: 0.509434, g: 0, b: 0.042452913, a: 0.10980392}
+    key3: {r: 1, g: 0.92316926, b: 0.64762497, a: 0.015686275}
+    key4: {r: 1, g: 0.94509804, b: 0.65882355, a: 0.007843138}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 2185
+    ctime1: 4626
+    ctime2: 16191
+    ctime3: 30840
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 16448
+    atime2: 31097
+    atime3: 37779
+    atime4: 65535
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 5
   seed: {fileID: 0}
   colourSeed: 0
   showC: 0

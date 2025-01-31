@@ -11,7 +11,7 @@ public class MyPlayer : MonoBehaviour
     public GameObject artInside;
     float dt;
     public float movementSpeed = 0.5f;
-    public float rotSpeed = 30;
+    public float rotSpeed = 110;
     float artRotation;
     float artScale = 1;
     bool gameOver = false;
@@ -30,7 +30,7 @@ public class MyPlayer : MonoBehaviour
     public Material shaderDustMat;
     public Gradient colourProgressoin;
     public Gradient colourProgressForDust;
-
+    public Gradient lifeDotsGradient;
     public Seed seed;
     public float colourSeed;
     [Range(0f, 1f)]
@@ -39,7 +39,7 @@ public class MyPlayer : MonoBehaviour
 
     public Image inner_UI, outer_UI;
 
-
+    bool lastStand = false;
     private void Start()
     {
 
@@ -58,16 +58,21 @@ public class MyPlayer : MonoBehaviour
         if (scale > 0.01f)
         {
             scale -= 0.02f;
-           // transform.localScale = new Vector3(0.3f, 0.3f, 0.3f) +  new Vector3(0.7f, 0.7f, 0.7f) * scale ;
+            // transform.localScale = new Vector3(0.3f, 0.3f, 0.3f) +  new Vector3(0.7f, 0.7f, 0.7f) * scale ;
             //trailRenderer.startWidth = scale;
 
             if (scale > 0.5f)
             {
                 inner_UI.fillAmount = 1;//inner is full
                 outer_UI.fillAmount = (scale * 2) - 1;
+                inner_UI.color = lifeDotsGradient.Evaluate(1);
             }
             else
+            {
                 inner_UI.fillAmount = (scale * 2) - 0;
+                inner_UI.color = lifeDotsGradient.Evaluate(scale * 2);
+  
+            }
 
             //lifeIndication.startWidth = 0.2f ;
             //lifeIndication.time = ((scale) * 2.5f);
@@ -80,8 +85,9 @@ public class MyPlayer : MonoBehaviour
         }
         else
         {
-            GameOver();
+            //GameOver(); -- don't kill player!!
         }
+        
     }
 
     float blink;
@@ -111,10 +117,21 @@ public class MyPlayer : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
-                rotSpeed = -rotSpeed;
-                artRotation = rotSpeed * 4;
+                if (scale > 0.03f)
+                {
+                    rotSpeed = -rotSpeed;
+                    artRotation = rotSpeed * 4;
+                    speedBurst = 4.7f;
+                }
+                else//last stand!!
+                {
+
+                    if(!lastStand) speedBurst = 17.7f;
+                    lastStand = true;
+                }
+
                 artScale = 1.1f;
-                speedBurst = 4.7f;
+                
 
                 UpdateScale();
             }
@@ -124,21 +141,24 @@ public class MyPlayer : MonoBehaviour
                 scale = 1;
                 UpdateScale();
                 score.Add();
+                lastStand = false;
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
+                lastStand = false;
                 scale = 0.5f;
                 UpdateScale();
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                scale = 0.32f;
+                
+                scale = 0.03f;
                 UpdateScale();
             }
 
             dt = Time.deltaTime;
             transform.Translate(-transform.up * (movementSpeed + speedBurst) * dt);
-            transform.Rotate(0, rotSpeed * dt, 0, Space.Self);
+            if(!lastStand) transform.Rotate(0, rotSpeed * dt, 0, Space.Self);
 
 
             speedBurst -= (speedBurst - 0) / 0.6f * dt;
@@ -158,6 +178,8 @@ public class MyPlayer : MonoBehaviour
 
     void GameOver()
     {
+        inner_UI.enabled = false;
+        outer_UI.enabled = false;
         gameOver = true;
         onGameOver.Invoke();
         burst.gameObject.transform.parent = null;
@@ -181,6 +203,7 @@ public class MyPlayer : MonoBehaviour
         }
         if (collision.tag == "collectable")
         {
+            lastStand = false;
             //player knows about the collectable here !!!
             collision.gameObject.GetComponent<Collectable>().PickUp();
             scale = 1f;

@@ -25,10 +25,13 @@ public class VirtualPlane : MonoBehaviour
         foreach (Transform child in transform) maps.Add(child.transform);
 
         InvokeRepeating("CheckAndMoveChunk",0, 0.5f);
+        if (transform.position != Vector3.zero) SwapMap();// add a map if you're not at origin point!
 
     }
 
-   
+    
+
+
     void CheckAndMoveChunk()
     {
 
