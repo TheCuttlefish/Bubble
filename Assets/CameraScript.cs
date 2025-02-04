@@ -10,9 +10,15 @@ public class CameraScript : MonoBehaviour
     float zPos = -15;
     float playerZoom = 35;
 
-    public void SetZPos(float _life)
+
+    public void SetZoom(float _z)
     {
-        if (playerZoom > 20) playerZoom -= 5;
+        playerZoom = _z;
+    }
+
+    public void DecreaseZoom() // this needs to be fixed! dones't do anything!
+    {
+        if (playerZoom > 20) playerZoom -= 10;
     }
 
     public void ZoomOut()
@@ -39,8 +45,8 @@ public class CameraScript : MonoBehaviour
 
         }else // in game
         {
-            playerZoom -= (playerZoom - 35) / 7f * dt;//easing zoom to 40
-            zPos -= (zPos - ( -playerZoom )) / 5f * dt;//easing applying it on camZ - 3 slow , 0,2 = fast
+            playerZoom -= (playerZoom - 35) / 0.2f * dt;//easing zoom to 40
+            zPos -= (zPos - ( -playerZoom )) / 3f * dt;//easing applying it on camZ - 3 slow , 0,2 = fast
             transform.position = new Vector3(transform.position.x, transform.position.y, zPos);
         }
     }

@@ -20689,7 +20689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.84291995, b: 0, a: 0.05882353}
+  m_Color: {r: 1, g: 0.84291995, b: 0, a: 0.27450982}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -23506,7 +23506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c4ac90a21190e4d9623a9872683b4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 45656
+  seed: 777
 --- !u!4 &1269867504
 Transform:
   m_ObjectHideFlags: 0
@@ -34242,7 +34242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.94623256, b: 0.65723264, a: 0.007843138}
+  m_Color: {r: 1, g: 0.94623256, b: 0.65723264, a: 0.05490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -36517,8 +36517,8 @@ MonoBehaviour:
     key0: {r: 1, g: 0, b: 0.41675282, a: 0.5294118}
     key1: {r: 0.7484276, g: 0, b: 0.1320756, a: 0.226187}
     key2: {r: 0.509434, g: 0, b: 0.042452913, a: 0.10980392}
-    key3: {r: 1, g: 0.92316926, b: 0.64762497, a: 0.015686275}
-    key4: {r: 1, g: 0.94509804, b: 0.65882355, a: 0.007843138}
+    key3: {r: 1, g: 0.92316926, b: 0.64762497, a: 0.05490196}
+    key4: {r: 1, g: 0.94509804, b: 0.65882355, a: 0.05490196}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}

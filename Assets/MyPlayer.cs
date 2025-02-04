@@ -80,7 +80,7 @@ public class MyPlayer : MonoBehaviour
             //lifeIndication.textureScale = new Vector2( (int)((scale + 0.02f) * 49), 1); 
 
             art.GetComponent<Renderer>().material.color = lifeGradient.Evaluate(scale);
-            cam.GetComponent<CameraScript>().SetZPos(scale);// - 1 to 0.3f
+            cam.GetComponent<CameraScript>().DecreaseZoom();
 
         }
         else
@@ -152,13 +152,21 @@ public class MyPlayer : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 
-                scale = 0.03f;
+                scale = 0.04f;//last stance
                 UpdateScale();
             }
 
             dt = Time.deltaTime;
-            transform.Translate(-transform.up * (movementSpeed + speedBurst) * dt);
-            if(!lastStand) transform.Rotate(0, rotSpeed * dt, 0, Space.Self);
+            // last stand mechanic and regualr movemnt
+            if (scale > 0.022f || scale < 0.01) { 
+                transform.Translate(-transform.up * (movementSpeed + speedBurst) * dt);
+            }else
+            {
+                Camera.main.GetComponent<CameraScript>().SetZoom(50);
+
+            }
+
+            if(!lastStand)  transform.Rotate(0, rotSpeed * dt, 0, Space.Self);
 
 
             speedBurst -= (speedBurst - 0) / 0.6f * dt;
@@ -176,7 +184,7 @@ public class MyPlayer : MonoBehaviour
     }
 
 
-    void GameOver()
+    void GameOver() // - this needs to be fixed as some points ! too much stuff
     {
         inner_UI.enabled = false;
         outer_UI.enabled = false;
@@ -196,10 +204,7 @@ public class MyPlayer : MonoBehaviour
     {
         if (collision.tag == "bubble")
         {
-            if (!gameOver)
-            {
-                GameOver();
-            }
+            if (!gameOver)  GameOver();
         }
         if (collision.tag == "collectable")
         {
