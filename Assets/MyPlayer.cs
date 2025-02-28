@@ -69,6 +69,7 @@ public class MyPlayer : MonoBehaviour
             }
             else
             {
+                outer_UI.fillAmount = 0;//--added to fix the bug when it did not disapear when (10%) removed
                 inner_UI.fillAmount = (scale * 2) - 0;
                 inner_UI.color = lifeDotsGradient.Evaluate(scale * 2);
   
@@ -202,9 +203,27 @@ public class MyPlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+   
+        
+        
         if (collision.tag == "bubble")
         {
-            if (!gameOver)  GameOver();
+
+            //there is bug with collisoin - if you collide with 2 circles at the same time then you pass through
+            // this can be fixed with on collision stay = push player out of the planet
+            // or have a little cool down on collision so that you can't collide with 2 things at the same time
+
+            // also maybe if you're on 0.1 health (10%) and you get hit it shouold not be gave over!!!
+            //-- put player on last stance instead
+            var b =Instantiate(burst,transform.position, Quaternion.identity);
+            b.gameObject.SetActive(true);
+
+            transform.Rotate(0, 180, 0);
+            speedBurst = 5;
+            scale -= 0.1f;
+            UpdateScale();
+            lastStand = false;
+            if (scale < 0.01f) if (!gameOver)  GameOver(); // activate last stand when player has 0 moves
         }
         if (collision.tag == "collectable")
         {
@@ -215,6 +234,7 @@ public class MyPlayer : MonoBehaviour
             UpdateScale();
             score.Add();
         }
+        
 
     }
 }
