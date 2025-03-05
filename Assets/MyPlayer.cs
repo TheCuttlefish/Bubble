@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MyPlayer : MonoBehaviour
 {
+    
     public GameObject art;
     public GameObject artInside;
     float dt;
@@ -38,7 +39,8 @@ public class MyPlayer : MonoBehaviour
 
 
     public Image inner_UI, outer_UI;
-
+    
+    bool hasEnteredLastStand = false; //for audio effect
     bool lastStand = false;
     private void Start()
     {
@@ -51,7 +53,27 @@ public class MyPlayer : MonoBehaviour
         insideOriginalColour = artInside.GetComponent<Renderer>().material.color;
         trailRenderer = GetComponent<TrailRenderer>();
         score = GameObject.Find("score").GetComponent<ScoreCounter>();
+        AudioManager.Instance.RestartIdleLoop();
+        StartCoroutine(UpdateIdleSound());
     }
+
+    IEnumerator UpdateIdleSound() //to modulate player gameobject idle sound's pitch when moving
+    {
+    while(true)
+    {
+        // Calculate parameters using existing values
+        float totalSpeed = movementSpeed + speedBurst;
+        // Normalize speed (5f divisor matches your max observed speed)
+        float speedFactor = totalSpeed / 6f; 
+        float sizeFactor = scale; // Directly use scale value
+        
+        // Send values to AudioManager
+        AudioManager.Instance.UpdateIdleLoop(speedFactor, sizeFactor);
+        
+        // Wait 0.2 seconds before next update
+        yield return new WaitForSeconds(0.1f);
+    }
+    }   
 
     void UpdateScale()
     {
@@ -123,12 +145,18 @@ public class MyPlayer : MonoBehaviour
                     rotSpeed = -rotSpeed;
                     artRotation = rotSpeed * 4;
                     speedBurst = 4.7f;
+                    AudioManager.Instance.PlayRandomized("movement"); //sound call
                 }
                 else//last stand!!
                 {
 
-                    if(!lastStand) speedBurst = 17.7f;
+                    if(!lastStand) 
+                    {
+                        speedBurst = 17.7f;
+                        AudioManager.Instance.PlayRandomized("laststandlaunch"); //sound call
+                    }
                     lastStand = true;
+                    
                 }
 
                 artScale = 1.1f;
@@ -161,8 +189,14 @@ public class MyPlayer : MonoBehaviour
             // last stand mechanic and regualr movemnt
             if (scale > 0.022f || scale < 0.01) { 
                 transform.Translate(-transform.up * (movementSpeed + speedBurst) * dt);
-            }else
+            }
+            else
             {
+                if (!hasEnteredLastStand)
+                {
+                    AudioManager.Instance.PlayRandomized("laststand"); //sound call
+                    hasEnteredLastStand = true; //to allow sound to happen only on enter and not when pressed multiple times
+                }
                 Camera.main.GetComponent<CameraScript>().SetZoom(50);
 
             }
@@ -198,6 +232,8 @@ public class MyPlayer : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(false);
         transform.GetChild(3).gameObject.SetActive(false);
         GetComponent<TrailRenderer>().time = 0.4f;
+        AudioManager.Instance.PlayRandomized("death"); // sound call
+        AudioManager.Instance.StopIdleLoop(); // turning off player idle loop once dead
     }
 
 
@@ -224,15 +260,18 @@ public class MyPlayer : MonoBehaviour
             UpdateScale();
             lastStand = false;
             if (scale < 0.01f) if (!gameOver)  GameOver(); // activate last stand when player has 0 moves
+            AudioManager.Instance.PlayRandomized("damage"); // sound call
         }
         if (collision.tag == "collectable")
         {
+            hasEnteredLastStand = false;
             lastStand = false;
             //player knows about the collectable here !!!
             collision.gameObject.GetComponent<Collectable>().PickUp();
             scale = 1f;
             UpdateScale();
             score.Add();
+            AudioManager.Instance.PlayRandomized("collect"); // sound call
         }
         
 

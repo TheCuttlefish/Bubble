@@ -16,9 +16,11 @@ public class Collectable : MonoBehaviour
 
     public List<TrailRenderer> trails = new List<TrailRenderer>();
     bool waitBeforeDestroy = false;
+
+    [SerializeField] CollectableAmbient ambientPlayer; // to play ambient idle loop
+    
     void Start()
     {
-
         art = transform.Find("art").gameObject;
         player = GameObject.Find("player").transform;
         
@@ -28,6 +30,7 @@ public class Collectable : MonoBehaviour
         zRot = Random.Range(-10f, 10f);
         transform.localEulerAngles = new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
         transform.localScale = new Vector3(1, 1, 1) * 0.5f;
+        
     }
 
 
@@ -73,6 +76,7 @@ public class Collectable : MonoBehaviour
             pickedUp = true;
             burst.gameObject.SetActive(true);
             art.GetComponent<Renderer>().enabled = false;
+            ambientPlayer.StopAmbient();  // stopping idle loop when picked up           
         }
     }
     
