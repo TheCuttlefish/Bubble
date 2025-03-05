@@ -19,7 +19,7 @@ public class SpaceBar : MonoBehaviour
     void Update()
     {
         dt = Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) )
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire1"))
         {
             showAlpha = 1f;
             interactedWithUI = true;

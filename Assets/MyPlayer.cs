@@ -116,7 +116,7 @@ public class MyPlayer : MonoBehaviour
         if (!gameOver)
         {
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire1"))
             {
                 if (scale > 0.03f)
                 {

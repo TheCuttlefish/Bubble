@@ -29,7 +29,7 @@ public class SpaceBarReset : MonoBehaviour
         {
 
             dt = Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire1"))
             {
                 if (!startExitTimer) {  
 
