@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: fogCraeture
-  m_Shader: {fileID: -6465566751694194690, guid: 9489cd5e143d0b345b9749121c19b13c, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: ee4c3594bae16294a81a112036606458, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -16,7 +16,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 4000
+  m_CustomRenderQueue: 4200
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -87,6 +87,7 @@ Material:
     - PlayerPos: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Main: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1493888980027098858
 MonoBehaviour:
